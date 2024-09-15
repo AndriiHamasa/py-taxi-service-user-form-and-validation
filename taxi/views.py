@@ -72,7 +72,9 @@ class CarDetailView(LoginRequiredMixin, generic.DetailView):
         else:
             request.user.cars.add(current_car)
 
-        return HttpResponseRedirect(reverse_lazy("taxi:car-detail", kwargs={"pk": current_car.pk}))
+        return HttpResponseRedirect(
+            reverse_lazy("taxi:car-detail", kwargs={"pk": current_car.pk})
+        )
 
 
 class CarCreateView(LoginRequiredMixin, generic.CreateView):
