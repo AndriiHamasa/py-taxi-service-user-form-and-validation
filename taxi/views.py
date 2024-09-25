@@ -63,6 +63,13 @@ class CarListView(LoginRequiredMixin, generic.ListView):
 class CarDetailView(LoginRequiredMixin, generic.DetailView):
     model = Car
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        car_drivers = Driver.objects.filter(cars__pk=self.kwargs["pk"])
+        context["car_drivers"] = car_drivers
+        return context
+
     @staticmethod
     def post(request, *args, **kwargs):
         current_car = Car.objects.get(pk=kwargs["pk"])
